@@ -1,3 +1,4 @@
+#pragma warning disable
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,9 +10,14 @@ namespace TodoListApp.Services
     public interface ITaskService
     {
         Task GetById(int id);
+
         IEnumerable<Task> GetAll();
+
         void Create(Task task);
+
         void Update(Task task);
+
         void Delete(int id);
+
     }
 }

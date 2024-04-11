@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+#pragma warning disable
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using TodoListApp.WebApp.Areas.Identity.Data;

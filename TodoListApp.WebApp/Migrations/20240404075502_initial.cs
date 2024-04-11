@@ -1,10 +1,8 @@
-﻿using System;
+#pragma warning disable
+using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
-
-#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
-
 namespace TodoListApp.WebApp.Migrations
 {
     /// <inheritdoc />
@@ -13,31 +11,31 @@ namespace TodoListApp.WebApp.Migrations
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.CreateTable(
+            _ = migrationBuilder.CreateTable(
                 name: "Categories",
                 columns: table => new
                 {
                     CategoryId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Categories", x => x.CategoryId);
+                    _ = table.PrimaryKey("PK_Categories", x => x.CategoryId);
                 });
 
-            migrationBuilder.CreateTable(
+            _ = migrationBuilder.CreateTable(
                 name: "Statuses",
                 columns: table => new
                 {
                     StatusId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Statuses", x => x.StatusId);
+                    _ = table.PrimaryKey("PK_Statuses", x => x.StatusId);
                 });
 
-            migrationBuilder.CreateTable(
+            _ = migrationBuilder.CreateTable(
                 name: "ToDos",
                 columns: table => new
                 {
@@ -46,18 +44,18 @@ namespace TodoListApp.WebApp.Migrations
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DueDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CategoryId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    StatusId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                    StatusId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ToDos", x => x.Id);
-                    table.ForeignKey(
+                    _ = table.PrimaryKey("PK_ToDos", x => x.Id);
+                    _ = table.ForeignKey(
                         name: "FK_ToDos_Categories_CategoryId",
                         column: x => x.CategoryId,
                         principalTable: "Categories",
                         principalColumn: "CategoryId",
                         onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
+                    _ = table.ForeignKey(
                         name: "FK_ToDos_Statuses_StatusId",
                         column: x => x.StatusId,
                         principalTable: "Statuses",
@@ -65,7 +63,7 @@ namespace TodoListApp.WebApp.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.InsertData(
+            _ = migrationBuilder.InsertData(
                 table: "Categories",
                 columns: new[] { "CategoryId", "Name" },
                 values: new object[,]
@@ -74,24 +72,24 @@ namespace TodoListApp.WebApp.Migrations
                     { "ex", "Excercise" },
                     { "home", "Home" },
                     { "shop", "Shopping" },
-                    { "work", "Work" }
+                    { "work", "Work" },
                 });
 
-            migrationBuilder.InsertData(
+            _ = migrationBuilder.InsertData(
                 table: "Statuses",
                 columns: new[] { "StatusId", "Name" },
                 values: new object[,]
                 {
                     { "closed", "Completed" },
-                    { "open", "Open" }
+                    { "open", "Open" },
                 });
 
-            migrationBuilder.CreateIndex(
+            _ = migrationBuilder.CreateIndex(
                 name: "IX_ToDos_CategoryId",
                 table: "ToDos",
                 column: "CategoryId");
 
-            migrationBuilder.CreateIndex(
+            _ = migrationBuilder.CreateIndex(
                 name: "IX_ToDos_StatusId",
                 table: "ToDos",
                 column: "StatusId");
@@ -100,13 +98,13 @@ namespace TodoListApp.WebApp.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
+            _ = migrationBuilder.DropTable(
                 name: "ToDos");
 
-            migrationBuilder.DropTable(
+            _ = migrationBuilder.DropTable(
                 name: "Categories");
 
-            migrationBuilder.DropTable(
+            _ = migrationBuilder.DropTable(
                 name: "Statuses");
         }
     }

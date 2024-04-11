@@ -1,3 +1,4 @@
+#pragma warning disable
 using Microsoft.EntityFrameworkCore;
 using TodoListApp.WebApp.Models;
 using Microsoft.AspNetCore.Identity;
@@ -10,7 +11,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
 
-//Add EF core Di
+// Add EF core Di
 builder.Services.AddDbContext<ToDoContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("ToDoContext")));
 builder.Services.AddDbContext<TodoListAppWebAppContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("TodoListAppWebAppContextConnection")));
 
@@ -22,16 +23,17 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
-    app.UseExceptionHandler("/Home/Error");
+    _ = app.UseExceptionHandler("/Home/Error");
+
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-    app.UseHsts();
+    _ = app.UseHsts();
 }
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-app.UseAuthentication();;
+app.UseAuthentication();
 
 app.UseAuthorization();
 

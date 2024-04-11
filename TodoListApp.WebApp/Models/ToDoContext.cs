@@ -1,31 +1,30 @@
 using Microsoft.EntityFrameworkCore;
 
-namespace TodoListApp.WebApp.Models;
-
-public class ToDoContext :DbContext
+namespace TodoListApp.WebApp.Models
 {
-    public ToDoContext(DbContextOptions<ToDoContext> options) : base(options) { }
-
-    public DbSet<ToDo> ToDos { get; set; } = null!;
-    public DbSet<Category> Categories { get; set; } = null!;
-    public DbSet<Status> Statuses { get; set; } = null!;
-
-    //seed data
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    public class ToDoContext : DbContext
     {
-        modelBuilder.Entity<Category>().HasData(
-            new Category { CategoryId = "work", Name = "Work" },
-            new Category { CategoryId = "home", Name = "Home" },
-            new Category { CategoryId = "ex", Name = "Excercise" },
-            new Category { CategoryId = "shop", Name = "Shopping" },
-            new Category { CategoryId = "call", Name = "Contact" }
-        );
+        public ToDoContext(DbContextOptions<ToDoContext> options) : base(options) { }
 
-        modelBuilder.Entity<Status>().HasData(
-            new Status { StatusId = "open", Name = "Open" },
-            new Status { StatusId = "closed", Name = "Completed" }
-            );
+        public DbSet<ToDo> ToDos { get; set; } = null!;
+
+        public DbSet<Category> Categories { get; set; } = null!;
+
+        public DbSet<Status> Statuses { get; set; } = null!;
+
+        // seed data
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            _ = modelBuilder.Entity<Category>().HasData(
+                new Category { CategoryId = "work", Name = "Work" },
+                new Category { CategoryId = "home", Name = "Home" },
+                new Category { CategoryId = "ex", Name = "Excercise" },
+                new Category { CategoryId = "shop", Name = "Shopping" },
+                new Category { CategoryId = "call", Name = "Contact" });
+
+            _ = modelBuilder.Entity<Status>().HasData(
+                new Status { StatusId = "open", Name = "Open" },
+                new Status { StatusId = "closed", Name = "Completed" });
+        }
     }
-
-
 }

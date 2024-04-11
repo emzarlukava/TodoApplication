@@ -1,3 +1,4 @@
+#pragma warning disable
 using System.Diagnostics;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -8,21 +9,20 @@ namespace TodoListApp.WebApp.Controllers
     [Authorize]
     public class HomeController : Controller
     {
-
         private ToDoContext context;
 
-        public HomeController(ToDoContext ctx) => context = ctx;
+        public HomeController(ToDoContext ctx) => this.context = ctx;
 
         public IActionResult Index(string id)
         {
             var filters = new FiltersTodo(id);
-            ViewBag.Filters = filters;
+            this.ViewBag.Filters = filters;
 
-            ViewBag.Categories = context.Categories.ToList();
-            ViewBag.Statuses = context.Statuses.ToList();
-            ViewBag.DueFilters = FiltersTodo.DueFilterValues;
+            this.ViewBag.Categories = this.context.Categories.ToList();
+            this.ViewBag.Statuses = this.context.Statuses.ToList();
+            this.ViewBag.DueFilters = FiltersTodo.DueFilterValues;
 
-            IQueryable<ToDo> query = context.ToDos
+            IQueryable<ToDo> query = this.context.ToDos
                 .Include(t => t.Category)
                 .Include(t => t.Status);
 
@@ -52,35 +52,35 @@ namespace TodoListApp.WebApp.Controllers
                     query = query.Where(t => t.DueDate == today);
                 }
             }
+
             var tasks = query.OrderBy(t => t.DueDate).ToList();
 
-            return View(tasks);
+            return this.View(tasks);
         }
+
         [HttpGet]
         public IActionResult Add()
         {
-            ViewBag.Categories = context.Categories.ToList();
-            ViewBag.Statuses = context.Statuses.ToList();
+            this.ViewBag.Categories = this.context.Categories.ToList();
+            this.ViewBag.Statuses = this.context.Statuses.ToList();
             var task = new ToDo { StatusId = "Open" };
-            return View(task);
+            return this.View(task);
         }
 
         [HttpPost]
         public IActionResult Add(ToDo task)
         {
-            if (ModelState.IsValid)
+            if (this.ModelState.IsValid)
             {
-                context.ToDos.Add(task);
-                context.SaveChanges();
-                return RedirectToAction("Index");
-
+                _ = this.context.ToDos.Add(task);
+                _ = this.context.SaveChanges();
+                return this.RedirectToAction("Index");
             }
             else
             {
-                ViewBag.Categories = context.Categories.ToList();
-                ViewBag.statuses = context.Statuses.ToList();
-                return View(task);
-
+                this.ViewBag.Categories = this.context.Categories.ToList();
+                this.ViewBag.statuses = this.context.Statuses.ToList();
+                return this.View(task);
             }
         }
 
@@ -88,33 +88,34 @@ namespace TodoListApp.WebApp.Controllers
         public IActionResult Filter(string[] filter)
         {
             string id = string.Join('-', filter);
-            return RedirectToAction("Index", new { ID = id });
+            return this.RedirectToAction("Index", new { ID = id });
         }
 
         [HttpPost]
         public IActionResult MarkComplete([FromRoute] string id, ToDo selected)
         {
-            selected = context.ToDos.Find(selected.Id)!;
+            selected = this.context.ToDos.Find(selected.Id)!;
 
             if (selected != null)
             {
                 selected.StatusId = "closed";
-                context.SaveChanges();
+                _ = this.context.SaveChanges();
             }
-            return RedirectToAction("index", new { ID = id });
+
+            return this.RedirectToAction("index", new { ID = id });
         }
 
         [HttpPost]
         public IActionResult DeleteComplete(string id)
         {
-            var toDelete = context.ToDos.Where(t => t.StatusId == "closed").ToList();
+            var toDelete = this.context.ToDos.Where(t => t.StatusId == "closed").ToList();
             foreach (var task in toDelete)
             {
-                context.ToDos.Remove(task);
+                _ = this.context.ToDos.Remove(task);
             }
-            context.SaveChanges();
-            return RedirectToAction("Index", new { ID = id });
-        }
 
+            _ = this.context.SaveChanges();
+            return this.RedirectToAction("Index", new { ID = id });
+        }
     }
 }

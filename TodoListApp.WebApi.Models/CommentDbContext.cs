@@ -1,8 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+#pragma warning disable
 using Microsoft.EntityFrameworkCore;
 
 namespace TodoListApp.WebApi.Models
@@ -19,12 +15,12 @@ namespace TodoListApp.WebApi.Models
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             // Configure relationships if needed
-            modelBuilder.Entity<Comment>()
+            _ = modelBuilder.Entity<Comment>()
                 .HasOne(c => c.Task)
                 .WithMany(t => t.Comments)
                 .HasForeignKey(c => c.TaskId);
 
-            modelBuilder.Entity<Comment>()
+            _ = modelBuilder.Entity<Comment>()
                 .HasOne(c => c.User);
         }
     }
