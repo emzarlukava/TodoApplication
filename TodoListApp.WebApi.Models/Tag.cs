@@ -8,6 +8,6 @@ namespace TodoListApp.WebApi.Models
 
         public string? Color { get; set; }
 
-        public ICollection<Task>? Tasks { get; set; } // Tasks associated with this tag
+        public ICollection<Task>? Tasks { get; } // Tasks associated with this tag
     }
 }

@@ -27,15 +27,15 @@ public class FiltersTodo
 
     public string StatusId { get; }
 
-    public bool HasCategory => this.CategoryId.ToLower() != "all";
+    public bool HasCategory => !this.CategoryId.Equals("all", StringComparison.OrdinalIgnoreCase);
 
-    public bool HasDue => this.Due.ToLower() != "all";
+    public bool HasDue => !this.Due.Equals("all", StringComparison.OrdinalIgnoreCase);
 
-    public bool HasStatus => this.StatusId.ToLower() != "all";
+    public bool HasStatus => !this.StatusId.Equals("all", StringComparison.OrdinalIgnoreCase);
 
-    public bool IsPast => this.Due.ToLower() == "past";
+    public bool IsPast => this.Due.Equals("past", StringComparison.OrdinalIgnoreCase);
 
-    public bool IsFuture => this.Due.ToLower() == "future";
+    public bool IsFuture => this.Due.Equals("future", StringComparison.OrdinalIgnoreCase);
 
-    public bool IsToday => this.Due.ToLower() == "today";
+    public bool IsToday => this.Due.Equals("today", StringComparison.OrdinalIgnoreCase);
 }

@@ -12,6 +12,6 @@ namespace TodoListApp.WebApi.Models
 
         public User? Owner { get; set; } // Owner of the TodoList
 
-        public ICollection<Task>? Tasks { get; set; } // Tasks associated with this TodoList
+        public ICollection<Task>? Tasks { get; } // Tasks associated with this TodoList
     }
 }

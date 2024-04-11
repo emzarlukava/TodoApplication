@@ -17,8 +17,8 @@ namespace TodoListApp.WebApi.Models
         // Navigation properties
         public User? AssignedToUser { get; set; } // User to whom the task is assigned
 
-        public ICollection<Tag>? Tags { get; set; } // Tags associated with this task
+        public ICollection<Tag>? Tags { get; } // Tags associated with this task
 
-        public ICollection<Comment>? Comments { get; set; } // Comments associated with this task
+        public ICollection<Comment>? Comments { get; } // Comments associated with this task
     }
 }
