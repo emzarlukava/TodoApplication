@@ -1,8 +1,8 @@
 namespace TodoListApp.WebApp.Models;
 
-public class Filters
+public class FiltersTodo
 {
-    public Filters(string filterstring)
+    public FiltersTodo(string filterstring)
     {
         FilterString = filterstring ?? "all-all-all";
         string[] filters = FilterString.Split('-');
