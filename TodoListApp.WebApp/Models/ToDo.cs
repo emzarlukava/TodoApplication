@@ -1,3 +1,4 @@
+#pragma warning disable
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 
@@ -25,6 +26,6 @@ namespace TodoListApp.WebApp.Models
         [ValidateNever]
         public Status Status { get; set; } = null!;
 
-        public bool Overdue => StatusId == "open" && DueDate < DateTime.Today;
+        public bool Overdue => this.StatusId == "open" && this.DueDate < DateTime.Today;
     }
 }

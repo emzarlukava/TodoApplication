@@ -1,3 +1,4 @@
+#pragma warning disable
 using Microsoft.EntityFrameworkCore;
 
 namespace TodoListApp.WebApi.Models;

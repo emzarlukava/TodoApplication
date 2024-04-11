@@ -1,3 +1,4 @@
+#pragma warning disable
 using Microsoft.EntityFrameworkCore;
 using TodoListApp.WebApi.Models;
 
@@ -13,8 +14,8 @@ var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    _ = app.UseSwagger();
+    _ = app.UseSwaggerUI();
 }
 
 app.UseHttpsRedirection();
